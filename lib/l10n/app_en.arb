@@ -1,0 +1,35 @@
+{
+    "appName":"Finnapp",
+    "income":"Income",
+    "outcome":"Outcome",
+    "balance":"Balance",
+    "bills":"Bills",
+    "clothes":"Clothes",
+    "entertainment":"Entertainment",
+    "food":"Food",
+    "health":"Health",
+    "pet":"Pet",
+    "transport":"Transport",
+    "trip":"Trip",
+    "logOut":"Salir",
+    "settings":"Settings"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
