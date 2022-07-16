@@ -1,11 +1,15 @@
 import 'package:finnapp/constants/color_constants.dart';
 import 'package:finnapp/constants/text_style_constants.dart';
+import 'package:finnapp/pages/main/categories/categories_page.dart';
+import 'package:finnapp/pages/main/main/main_page.dart';
+import 'package:finnapp/pages/main/more_options/more_options_page.dart';
+import 'package:finnapp/pages/main/statics/statics_page.dart';
+import 'package:finnapp/pages/main/transactions/transactions_page.dart';
 import 'package:finnapp/widgets/bar_widgets/bottom_navigation_bar_widget.dart';
 import 'package:finnapp/widgets/buttons_widgets/custom_expandable_fab.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -16,44 +20,23 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   //**********************INSTANCES**********************//
-  var renderOverlay = true;
-  var visible = true;
-  var switchLabelPosition = false;
-  var extend = false;
-  var rmicons = false;
-  var customDialRoot = false;
-  var closeManually = false;
-  var useRAnimation = true;
-  var isDialOpen = ValueNotifier<bool>(false);
-  var speedDialDirection = SpeedDialDirection.up;
-  var buttonSize = const Size(56.0, 56.0);
-  var childrenButtonSize = const Size(56.0, 56.0);
+
   static const _actionTitles = ['Create Post', 'Upload Photo', 'Upload Video'];
 
   //**********************BUILD**********************//
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        if (isDialOpen.value) {
-          isDialOpen.value = false;
-          return false;
-        }
-        return true;
-      },
-      child: Scaffold(
-        backgroundColor: ColorConstants.GREY,
-        appBar: _appBar(context),
-        body: const Center(
-          child: Text('Home Page'),
-        ),
-        bottomNavigationBar: const BottomNavigationBarWidget(),
-        floatingActionButton: _expandableFab(context),
-      ),
+    return Scaffold(
+      backgroundColor: ColorConstants.GREY,
+      appBar: _appBar(context),
+      body: _HomePageBody(),
+      bottomNavigationBar: const BottomNavigationBarWidget(),
+      floatingActionButton: _expandableFab(context),
     );
   }
 
   //**********************WIDGETS**********************//
+  // APP BAR
   _appBar(BuildContext context) {
     return AppBar(
       elevation: 0,
@@ -182,5 +165,27 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         );
       },
     );
+  }
+}
+
+class _HomePageBody extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    const int currentIndex = 2;
+
+    switch (currentIndex) {
+      case 0:
+        return const TransactionsPage();
+      case 1:
+        return const StaticsPage();
+      case 2:
+        return const MainPage();
+      case 3:
+        return const CategoriesPage();
+      case 4:
+        return const MoreOptionsPage();
+      default:
+        return const MainPage();
+    }
   }
 }

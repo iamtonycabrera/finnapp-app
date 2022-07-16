@@ -10,7 +10,9 @@ class BottomNavigationBarWidget extends StatelessWidget {
   //**********************BUILD**********************//
   @override
   Widget build(BuildContext context) {
+    const currentIndex = 2;
     return BottomNavigationBar(
+      currentIndex: currentIndex,
       backgroundColor: ColorConstants.WHITE,
       selectedItemColor: ColorConstants.BLUE,
       unselectedItemColor: ColorConstants.DARK_GREY,
