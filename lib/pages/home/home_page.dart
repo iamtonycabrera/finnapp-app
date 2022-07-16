@@ -8,6 +8,7 @@ import 'package:finnapp/pages/main/transactions/transactions_page.dart';
 import 'package:finnapp/services/ui_provider.dart';
 import 'package:finnapp/widgets/bar_widgets/bottom_navigation_bar_widget.dart';
 import 'package:finnapp/widgets/buttons_widgets/custom_expandable_fab.dart';
+import 'package:finnapp/widgets/page_title/page_title.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -29,7 +30,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorConstants.GREY,
       appBar: _appBar(context),
       body: _HomePageBody(),
       bottomNavigationBar: const BottomNavigationBarWidget(),
@@ -41,12 +41,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   // APP BAR
   _appBar(BuildContext context) {
     return AppBar(
+      toolbarHeight: 70,
       elevation: 0,
       backgroundColor: ColorConstants.GREY,
-      title: Text(AppLocalizations.of(context)!.appName),
-      titleTextStyle: TextStyleConstants.TITLE_1_BLACK,
+      title: const PageTitle(),
       // APP BAR ACTIONS
       actions: [_appBarActions()],
+      bottom: _searchBar(context),
     );
   }
 
@@ -57,7 +58,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         CupertinoIcons.profile_circled,
         color: ColorConstants.DARKER_GREY,
       ),
-      iconSize: 40,
+      iconSize: 45,
       offset: const Offset(0, 50),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(5.0),
@@ -105,6 +106,47 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           ),
         ],
       ),
+    );
+  }
+
+  // SEARCH BAR
+  _searchBar(BuildContext context) {
+    return PreferredSize(
+      preferredSize: const Size.fromHeight(kToolbarHeight - 10),
+      child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 15),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(50),
+            color: ColorConstants.WHITE,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Material(
+              color: ColorConstants.WHITE,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(
+                    CupertinoIcons.search,
+                    color: ColorConstants.DARK_GREY,
+                    size: 27,
+                  ),
+                  const SizedBox(width: 5),
+                  Expanded(
+                    child: TextField(
+                      // textAlign: TextAlign.center,
+                      decoration: InputDecoration.collapsed(
+                        hintStyle: TextStyleConstants.SUBTITLE_1_DARK_GREY,
+                        hintText:
+                            '${AppLocalizations.of(context)!.searchBarHint}...',
+                      ),
+                      onChanged: (value) {},
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )),
     );
   }
 
