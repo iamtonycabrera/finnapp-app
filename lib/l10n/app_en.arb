@@ -12,7 +12,8 @@
     "transport":"Transport",
     "trip":"Trip",
     "logOut":"Salir",
-    "settings":"Settings"
+    "settings":"Settings",
+    "searchBarHint":"Search"
 
 
 
