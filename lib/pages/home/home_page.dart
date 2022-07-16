@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:finnapp/constants/color_constants.dart';
 import 'package:finnapp/constants/text_style_constants.dart';
 import 'package:finnapp/widgets/bar_widgets/bottom_navigation_bar_widget.dart';
+import 'package:finnapp/widgets/buttons_widgets/custom_expandable_fab.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -29,6 +30,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   var speedDialDirection = SpeedDialDirection.up;
   var buttonSize = const Size(56.0, 56.0);
   var childrenButtonSize = const Size(56.0, 56.0);
+  static const _actionTitles = ['Create Post', 'Upload Photo', 'Upload Video'];
 
   //**********************BUILD**********************//
   @override
@@ -48,7 +50,33 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           child: Text('Home Page'),
         ),
         bottomNavigationBar: const BottomNavigationBarWidget(),
-        floatingActionButton: _speedDialWidget(context),
+        floatingActionButton: ExpandableFab(
+          distance: 80.0,
+          children: [
+            Column(
+              children: [
+                ActionButton(
+                  color: ColorConstants.RED,
+                  onPressed: () => _showAction(context, 1),
+                  icon: const Icon(CupertinoIcons.arrow_down),
+                ),
+                const SizedBox(height: 3),
+                Text(AppLocalizations.of(context)!.outcome),
+              ],
+            ),
+            Column(
+              children: [
+                ActionButton(
+                  color: ColorConstants.GREEN,
+                  onPressed: () => _showAction(context, 0),
+                  icon: const Icon(CupertinoIcons.arrow_up),
+                ),
+                const SizedBox(height: 3),
+                Text(AppLocalizations.of(context)!.income),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -123,69 +151,22 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
-  _speedDialWidget(BuildContext context) {
-    return SpeedDial(
-      backgroundColor: ColorConstants.BLUE,
-      overlayColor: Colors.black,
-      overlayOpacity: 0.3,
-      icon: Icons.add,
-      activeIcon: Icons.close,
-      spacing: 3,
-      openCloseDial: isDialOpen,
-      childPadding: const EdgeInsets.all(5),
-      spaceBetweenChildren: 4,
-      dialRoot: customDialRoot
-          ? (ctx, open, toggleChildren) {
-              return ElevatedButton(
-                onPressed: toggleChildren,
-                child: const Text(''),
-              );
-            }
-          : null,
-      buttonSize: buttonSize,
-      childrenButtonSize: childrenButtonSize,
-      visible: visible,
-      direction: speedDialDirection,
-      switchLabelPosition: switchLabelPosition,
-      closeManually: closeManually,
-      renderOverlay: renderOverlay,
-      onOpen: () => log('OPENING DIAL'),
-      onClose: () => log('DIAL CLOSED'),
-      useRotationAnimation: useRAnimation,
-      tooltip: 'Open Speed Dial',
-      heroTag: 'speed-dial-hero-tag',
-      elevation: 8.0,
-      animationCurve: Curves.elasticInOut,
-      isOpenOnStart: false,
-      animationDuration: const Duration(milliseconds: 300),
-      shape: customDialRoot
-          ? const RoundedRectangleBorder()
-          : const StadiumBorder(),
-      // childMargin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      children: [
-        SpeedDialChild(
-          child: !rmicons ? const Icon(CupertinoIcons.arrow_down) : null,
-          backgroundColor: ColorConstants.RED,
-          foregroundColor: ColorConstants.WHITE,
-          labelWidget: Text(
-            AppLocalizations.of(context)!.outcome,
-            style: const TextStyle(color: Colors.white),
-          ),
-          onTap: () {}, // TODO
-          onLongPress: () => log('FIRST CHILD LONG PRESS'),
-        ),
-        SpeedDialChild(
-          child: !rmicons ? const Icon(CupertinoIcons.arrow_up) : null,
-          backgroundColor: ColorConstants.GREEN,
-          foregroundColor: ColorConstants.WHITE,
-          labelWidget: Text(
-            AppLocalizations.of(context)!.income,
-            style: const TextStyle(color: Colors.white),
-          ),
-          onTap: () {}, // TODO
-          onLongPress: () => log('Second CHILD LONG PRESS'),
-        ),
-      ],
+  //**********************METHODS**********************//
+
+  void _showAction(BuildContext context, int index) {
+    showDialog<void>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Text(_actionTitles[index]),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('CLOSE'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
