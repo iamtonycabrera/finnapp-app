@@ -5,11 +5,13 @@ import 'package:finnapp/pages/main/main/main_page.dart';
 import 'package:finnapp/pages/main/more_options/more_options_page.dart';
 import 'package:finnapp/pages/main/statics/statics_page.dart';
 import 'package:finnapp/pages/main/transactions/transactions_page.dart';
+import 'package:finnapp/services/ui_provider.dart';
 import 'package:finnapp/widgets/bar_widgets/bottom_navigation_bar_widget.dart';
 import 'package:finnapp/widgets/buttons_widgets/custom_expandable_fab.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -171,7 +173,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 class _HomePageBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    const int currentIndex = 2;
+    final uiProvider = Provider.of<UIProvider>(context);
+
+    final int currentIndex = uiProvider.selectedMenuOpt;
 
     switch (currentIndex) {
       case 0:

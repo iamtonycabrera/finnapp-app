@@ -1,6 +1,8 @@
 import 'package:finnapp/constants/color_constants.dart';
+import 'package:finnapp/services/ui_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BottomNavigationBarWidget extends StatelessWidget {
   const BottomNavigationBarWidget({
@@ -10,9 +12,13 @@ class BottomNavigationBarWidget extends StatelessWidget {
   //**********************BUILD**********************//
   @override
   Widget build(BuildContext context) {
-    const currentIndex = 2;
+    // Providers
+    final uiProvider = Provider.of<UIProvider>(context);
+    final currentIndex = uiProvider.selectedMenuOpt;
+    // Widget
     return BottomNavigationBar(
       currentIndex: currentIndex,
+      onTap: (int i) => uiProvider.selectedMenuOpt = i,
       backgroundColor: ColorConstants.WHITE,
       selectedItemColor: ColorConstants.BLUE,
       unselectedItemColor: ColorConstants.DARK_GREY,
