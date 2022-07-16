@@ -1,3 +1,4 @@
+import 'package:finnapp/constants/color_constants.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatelessWidget {
@@ -5,9 +6,12 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('MainPage'),
+    return Scaffold(
+      backgroundColor: ColorConstants.GREY,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [],
+        ),
       ),
     );
   }
