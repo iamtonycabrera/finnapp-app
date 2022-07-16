@@ -26,6 +26,9 @@ dependencies:
   # Flutter Speed Dial
   # Flutter package to render a Material Design Speed Dial.
   flutter_speed_dial: ^6.0.0
+  # Provider
+  # A wrapper around InheritedWidget to make them easier to use and more reusable
+  provider: ^6.0.3
 
 dev_dependencies:
   flutter_test:
