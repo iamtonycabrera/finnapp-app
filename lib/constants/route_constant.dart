@@ -1,7 +1,7 @@
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
+import 'package:finnapp/pages/auth/login_page.dart';
 import 'package:finnapp/pages/home/home_page.dart';
-import 'package:finnapp/pages/login/login_page.dart';
 import 'package:finnapp/pages/welcome/welcome_page.dart';
 import 'package:flutter/material.dart';
 
