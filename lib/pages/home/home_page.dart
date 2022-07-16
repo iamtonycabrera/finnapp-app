@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:finnapp/constants/color_constants.dart';
 import 'package:finnapp/constants/text_style_constants.dart';
 import 'package:finnapp/widgets/bar_widgets/bottom_navigation_bar_widget.dart';
@@ -50,33 +48,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           child: Text('Home Page'),
         ),
         bottomNavigationBar: const BottomNavigationBarWidget(),
-        floatingActionButton: ExpandableFab(
-          distance: 80.0,
-          children: [
-            Column(
-              children: [
-                ActionButton(
-                  color: ColorConstants.RED,
-                  onPressed: () => _showAction(context, 1),
-                  icon: const Icon(CupertinoIcons.arrow_down),
-                ),
-                const SizedBox(height: 3),
-                Text(AppLocalizations.of(context)!.outcome),
-              ],
-            ),
-            Column(
-              children: [
-                ActionButton(
-                  color: ColorConstants.GREEN,
-                  onPressed: () => _showAction(context, 0),
-                  icon: const Icon(CupertinoIcons.arrow_up),
-                ),
-                const SizedBox(height: 3),
-                Text(AppLocalizations.of(context)!.income),
-              ],
-            ),
-          ],
-        ),
+        floatingActionButton: _expandableFab(context),
       ),
     );
   }
@@ -151,8 +123,50 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
-  //**********************METHODS**********************//
+  // EXPANDABLE FAB
+  _expandableFab(BuildContext context) {
+    return ExpandableFab(
+      distance: 80.0,
+      children: [
+        _outcomeButton(context),
+        _incomeButton(context),
+      ],
+    );
+  }
 
+  // OUTCOME BUTTON
+  _outcomeButton(BuildContext context) {
+    return Column(
+      children: [
+        ActionButton(
+          color: ColorConstants.RED,
+          onPressed: () => _showAction(context, 1),
+          icon: const Icon(CupertinoIcons.arrow_down),
+        ),
+        const SizedBox(height: 3),
+        Text(AppLocalizations.of(context)!.outcome),
+      ],
+    );
+  }
+
+  // INCOME BUTTON
+  _incomeButton(BuildContext context) {
+    return Column(
+      children: [
+        ActionButton(
+          color: ColorConstants.GREEN,
+          onPressed: () => _showAction(context, 0),
+          icon: const Icon(CupertinoIcons.arrow_up),
+        ),
+        const SizedBox(height: 3),
+        Text(AppLocalizations.of(context)!.income),
+      ],
+    );
+  }
+
+  //**********************METHODS**********************//
+  /// Its show dialog on buttons tap
+  // TODO: Widget to show if income or outcome
   void _showAction(BuildContext context, int index) {
     showDialog<void>(
       context: context,
