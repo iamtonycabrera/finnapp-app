@@ -1,9 +1,9 @@
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names
 
+import 'package:finnapp/pages/home/home_page.dart';
+import 'package:finnapp/pages/login/login_page.dart';
+import 'package:finnapp/pages/welcome/welcome_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_finnapp/pages/home/home_page.dart';
-import 'package:flutter_finnapp/pages/login/login_page.dart';
-import 'package:flutter_finnapp/pages/welcome/welcome_page.dart';
 
 class RouteConstants {
   //LOGIN
